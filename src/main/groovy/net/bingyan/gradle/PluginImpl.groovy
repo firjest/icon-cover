@@ -15,10 +15,6 @@ public class PluginImpl implements Plugin<Project> {
 
         project.gradle.addListener(new TimeListener())
 
-        if (!project.plugins.hasPlugin(AppPlugin)) {
-            throw new IllegalStateException("'com.android.application' plugin required.")
-        }
-
         IconCoverConfig config = project.extensions.create("iconCoverConfig", IconCoverConfig)
 
         def log = project.logger
@@ -42,10 +38,9 @@ public class PluginImpl implements Plugin<Project> {
                         findIcons(resDir, manifest).each { File icon ->
                             log.info "Adding flavor name and version to: " + icon.absolutePath
 
-                            def buildName = variant.flavorName + " " + variant.buildType.name
                             def version = variant.versionName
 
-                            addTextToImage(icon, config, buildName, version, config.extraText)
+                            addTextToImage(icon, config, config.buildSource, version, config.extraText)
                         }
                     }
                 }

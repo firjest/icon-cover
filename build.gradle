@@ -1,9 +1,15 @@
 group 'net.bingyan.gradle'
-version '1.0.1'
+version '1.0.10'
 
 apply plugin: 'groovy'
 apply plugin: 'maven'
 apply from: 'bintray.gradle'
+
+compileGroovy {
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+    options.encoding = "UTF-8"
+}
 
 buildscript {
     repositories {
